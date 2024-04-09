@@ -962,6 +962,19 @@
                 display: flex;
             }
 
+            #togglesections {
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                left: 50%;
+                width: 25px;
+                height: 25px;
+                border: 2px solid black;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
             .menu-bar {
                 position: fixed;
                 top: 0;
@@ -1435,6 +1448,24 @@
         .left-container,
         .right-container {
             display: none;
+            z-index: 99;
+        }
+
+        .left-container {
+            top: 0;
+        }
+
+        .right-container {
+            bottom: 0;
+        }
+
+        .left-container,
+        .right-container {
+            left: 0;
+            height: 100px;
+            align-items: center;
+            background-color: rgba(100, 150, 200, 0.2);
+            transition: all 0.3s ease-in-out;
         }
 
         .middle-container {
@@ -1704,6 +1735,9 @@
             <div id="smallnav">
                 <div class="logo-container">
                     <img id="logo" src="Untitled (1).jpg" alt="logo">
+                </div>
+                <div id="togglesections" style="cursor: pointer;">
+                    <strong>+</strong>
                 </div>
                 <div class="menu-bar" onclick="toggleMenu()">
                     <div class="bar"></div>
@@ -3629,6 +3663,36 @@
                 }, 500); // Adjust the delay based on your animation duration
             }
         }
+
+
+
+
+
+
+
+
+
+        
+        var isHidden = true;
+    document.getElementById('togglesections').addEventListener('click', function() {
+        var leftContainer = document.querySelector('.left-container');
+        var rightContainer = document.querySelector('.right-container');
+
+        if (isHidden) {
+            leftContainer.style.display = 'flex';
+            rightContainer.style.display = 'flex';
+            isHidden = false;
+        } else {
+            leftContainer.style.display = 'none';
+            rightContainer.style.display = 'none';
+            isHidden = true;
+        }
+    })
+
+
+
+
+
 
 
 
