@@ -1446,29 +1446,31 @@
                 right: 0;
             }
 
-        .left-container,
-        .right-container {
-            display: none;
-            z-index: 99;
-        }
-
         .left-container {
-            top: 0;
+            top: 50vh;
             align-items: flex-start;
         }
 
         .right-container {
-            bottom: 0;
+            bottom: 50vh;
             align-items: flex-end;
         }
 
         .left-container,
         .right-container {
+            display: none;
+            z-index: 99;
             left: 0;
+            justify-content: center;
             width: 100vw;
             height: max-content;
-            background-color: rgba(100, 150, 200, 0.2);
+            background: none;
             transition: all 0.3s ease-in-out;
+        }
+
+        .left-container:hover,
+        .right-container:hover {
+            background: none;
         }
 
         .left-container .section,
@@ -1478,6 +1480,16 @@
 
         .middle-container {
             width: 100vw;
+        }
+
+        #togglesections {
+            z-index: 99;
+            background-color: white;
+        }
+
+        #togglesections strong {
+            transform-origin: center;
+            transition: transform 0.3s ease;
         }
         }
     </style>
@@ -1744,9 +1756,6 @@
                 <div class="logo-container">
                     <img id="logo" src="Untitled (1).jpg" alt="logo">
                 </div>
-                <div id="togglesections" style="cursor: pointer;">
-                    <strong>+</strong>
-                </div>
                 <div class="menu-bar" onclick="toggleMenu()">
                     <div class="bar"></div>
                     <div class="bar"></div>
@@ -1785,6 +1794,9 @@
             </div>
         </nav>
     </header>
+    <div id="togglesections">
+        <strong>+</strong>
+    </div>
     <main>
         <div class="main-container">
             <section class="middle-container">
@@ -3682,17 +3694,23 @@
 
         
         var isHidden = true;
-    document.getElementById('togglesections').addEventListener('click', function() {
+        document.getElementById('togglesections').addEventListener('click', function() {
+        var ToggleSections = document.querySelector('#togglesections strong');
         var leftContainer = document.querySelector('.left-container');
         var rightContainer = document.querySelector('.right-container');
+        var overlay = document.querySelector('.overlay');
 
         if (isHidden) {
             leftContainer.style.display = 'flex';
             rightContainer.style.display = 'flex';
+            overlay.style.display = 'flex';
+            ToggleSections.style.transform = 'rotateZ(225deg)';
             isHidden = false;
         } else {
             leftContainer.style.display = 'none';
             rightContainer.style.display = 'none';
+            overlay.style.display = 'none';
+            ToggleSections.style.transform = 'rotateZ(0deg)';
             isHidden = true;
         }
     })
