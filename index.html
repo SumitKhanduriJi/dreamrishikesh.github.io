@@ -777,6 +777,7 @@
             position: absolute;
             width: max-content;
             display: flex;
+            flex-wrap: wrap;
         }
 
         .left-container {
@@ -1453,19 +1454,26 @@
 
         .left-container {
             top: 0;
+            align-items: flex-start;
         }
 
         .right-container {
             bottom: 0;
+            align-items: flex-end;
         }
 
         .left-container,
         .right-container {
             left: 0;
-            height: 100px;
-            align-items: center;
+            width: 100vw;
+            height: max-content;
             background-color: rgba(100, 150, 200, 0.2);
             transition: all 0.3s ease-in-out;
+        }
+
+        .left-container .section,
+        .right-container .section {
+            margin: 10px;
         }
 
         .middle-container {
