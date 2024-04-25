@@ -63,17 +63,28 @@
         .overlay,
         .overlay-modal,
         .modal,
+        .lroverlay,
         .nav-overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
+        }
+
+        .overlay,
+        .overlay-modal,
+        .modal,
+        .nav-overlay {
             z-index: 27;
+        }
+
+        .lroverlay {
+            z-index: 25;
         }
 
         .nav-overlay.display {
@@ -1446,56 +1457,57 @@
                 right: 0;
             }
 
-        .left-container {
-            top: 50vh;
-            align-items: flex-start;
-        }
+            .left-container {
+                top: 50vh;
+                align-items: flex-start;
+            }
 
-        .right-container {
-            bottom: 50vh;
-            align-items: flex-end;
-        }
+            .right-container {
+                bottom: 50vh;
+                align-items: flex-end;
+            }
 
-        .left-container,
-        .right-container {
-            display: none;
-            z-index: 99;
-            left: 0;
-            justify-content: center;
-            width: 100vw;
-            height: max-content;
-            background: none;
-            transition: all 0.3s ease-in-out;
-        }
+            .left-container,
+            .right-container {
+                display: none;
+                z-index: 99;
+                left: 0;
+                justify-content: center;
+                width: 100vw;
+                height: max-content;
+                background: none;
+                transition: all 0.3s ease-in-out;
+            }
 
-        .left-container:hover,
-        .right-container:hover {
-            background: none;
-        }
+            .left-container:hover,
+            .right-container:hover {
+                background: none;
+            }
 
-        .left-container .section,
-        .right-container .section {
-            margin: 10px;
-        }
+            .left-container .section,
+            .right-container .section {
+                margin: 10px;
+            }
 
-        .middle-container {
-            width: 100vw;
-        }
+            .middle-container {
+                width: 100vw;
+            }
 
-        #togglesections {
-            z-index: 99;
-            background-color: white;
-        }
+            #togglesections {
+                z-index: 26;
+                background-color: white;
+            }
 
-        #togglesections strong {
-            transform-origin: center;
-            transition: transform 0.3s ease;
-        }
+            #togglesections strong {
+                transform-origin: center;
+                transition: transform 0.3s ease;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="lroverlay"></div>
     <div class="overlay" id="overlay">
         <div id="thank-message">
             <span></span>
@@ -3632,88 +3644,133 @@
 
 
 
+// Check if the screen width is smaller than 920px
+if (window.innerWidth < 920) {
+    var isHidden = true;
+    document.getElementById('togglesections').addEventListener('click', toggleSections);
 
-
-
-        function moveToOtherContainer(clickedDiv) {
-            var middleContainer = document.querySelector('.middle-container');
-            var leftContainer = document.querySelector('.left-container');
-            var rightContainer = document.querySelector('.right-container');
-
-            if (clickedDiv.parentElement === leftContainer) {
-                var existingDiv = middleContainer.querySelector('div');
-                if (existingDiv) {
-                    // Move the existing div from middle-container to right-container with animation
-                    existingDiv.classList.add('move-right');
-                    setTimeout(function () {
-                        // Move the existing div from middle-container to right-container
-                        if (rightContainer.firstChild) {
-                            rightContainer.insertBefore(existingDiv, rightContainer.firstChild);
-                        } else {
-                            rightContainer.appendChild(existingDiv);
-                        }
-                        existingDiv.classList.remove('move-right');
-                        existingDiv.setAttribute('onclick', "moveToOtherContainer(this)");
-                    }, 500); // Adjust the delay based on your animation duration
-                }
-                // Move the clicked div to the middle-container with animation
-                clickedDiv.classList.add('move-middle');
-                setTimeout(function () {
-                    middleContainer.appendChild(clickedDiv);
-                    clickedDiv.classList.remove('move-middle');
-                    clickedDiv.setAttribute('onclick', "moveToOtherContainer(this)");
-                }, 500); // Adjust the delay based on your animation duration
-            } else if (clickedDiv.parentElement === rightContainer) {
-                var existingDiv = middleContainer.querySelector('div');
-                if (existingDiv) {
-                    // Move the existing div from middle-container to left-container with animation
-                    existingDiv.classList.add('move-left');
-                    setTimeout(function () {
-                        leftContainer.appendChild(existingDiv);
-                        existingDiv.classList.remove('move-left');
-                        existingDiv.setAttribute('onclick', "moveToOtherContainer(this)");
-                    }, 500); // Adjust the delay based on your animation duration
-                }
-                // Move the clicked div to the middle-container with animation
-                clickedDiv.classList.add('move-middle');
-                setTimeout(function () {
-                    middleContainer.appendChild(clickedDiv);
-                    clickedDiv.classList.remove('move-middle');
-                    clickedDiv.setAttribute('onclick', "moveToOtherContainer(this)");
-                }, 500); // Adjust the delay based on your animation duration
-            }
-        }
-
-
-
-
-
-
-
-
-
-        
-        var isHidden = true;
-        document.getElementById('togglesections').addEventListener('click', function() {
+    function toggleSections() {
         var ToggleSections = document.querySelector('#togglesections strong');
         var leftContainer = document.querySelector('.left-container');
         var rightContainer = document.querySelector('.right-container');
-        var overlay = document.querySelector('.overlay');
+        var lroverlay = document.querySelector('.lroverlay');
 
         if (isHidden) {
             leftContainer.style.display = 'flex';
             rightContainer.style.display = 'flex';
-            overlay.style.display = 'flex';
+            lroverlay.style.display = 'flex';
             ToggleSections.style.transform = 'rotateZ(225deg)';
             isHidden = false;
         } else {
             leftContainer.style.display = 'none';
             rightContainer.style.display = 'none';
-            overlay.style.display = 'none';
+            lroverlay.style.display = 'none';
             ToggleSections.style.transform = 'rotateZ(0deg)';
             isHidden = true;
         }
-    })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function moveToOtherContainer(clickedDiv) {
+    var middleContainer = document.querySelector('.middle-container');
+    var leftContainer = document.querySelector('.left-container');
+    var rightContainer = document.querySelector('.right-container');
+    var lrcSections = document.querySelectorAll('.section');
+
+    if (clickedDiv.parentElement === leftContainer) {
+        var existingDiv = middleContainer.querySelector('div');
+        if (existingDiv) {
+            // Move the existing div from middle-container to right-container with animation
+            existingDiv.classList.add('move-right');
+            setTimeout(function () {
+                // Move the existing div from middle-container to right-container
+                if (rightContainer.firstChild) {
+                    rightContainer.insertBefore(existingDiv, rightContainer.firstChild);
+                } else {
+                    rightContainer.appendChild(existingDiv);
+                }
+                existingDiv.classList.remove('move-right');
+                existingDiv.setAttribute('onclick', "moveToOtherContainer(this)");
+                
+                // Update display of section heads
+                updateSectionHeads();
+            }, 500); // Adjust the delay based on your animation duration
+        }
+        // Move the clicked div to the middle-container with animation
+        clickedDiv.classList.add('move-middle');
+        setTimeout(function () {
+            middleContainer.appendChild(clickedDiv);
+            clickedDiv.classList.remove('move-middle');
+            clickedDiv.setAttribute('onclick', "moveToOtherContainer(this)");
+            
+            // Update display of section heads
+            updateSectionHeads();
+        }, 500); // Adjust the delay based on your animation duration
+        // Call toggleSections after 0.5 second delay
+    setTimeout(toggleSections, 500);
+    } else if (clickedDiv.parentElement === rightContainer) {
+        var existingDiv = middleContainer.querySelector('div');
+        if (existingDiv) {
+            // Move the existing div from middle-container to left-container with animation
+            existingDiv.classList.add('move-left');
+            setTimeout(function () {
+                leftContainer.appendChild(existingDiv);
+                existingDiv.classList.remove('move-left');
+                existingDiv.setAttribute('onclick', "moveToOtherContainer(this)");
+                
+                // Update display of section heads
+                updateSectionHeads();
+            }, 500); // Adjust the delay based on your animation duration
+        }
+        // Move the clicked div to the middle-container with animation
+        clickedDiv.classList.add('move-middle');
+        setTimeout(function () {
+            middleContainer.appendChild(clickedDiv);
+            clickedDiv.classList.remove('move-middle');
+            clickedDiv.setAttribute('onclick', "moveToOtherContainer(this)");
+            
+            // Update display of section heads
+            updateSectionHeads();
+        }, 500); // Adjust the delay based on your animation duration
+        // Call toggleSections after 0.5 second delay
+    setTimeout(toggleSections, 500);
+    }
+    
+}
+
+function updateSectionHeads() {
+    var middleContainer = document.querySelector('.middle-container');
+    var lrcSections = document.querySelectorAll('.section');
+
+    lrcSections.forEach(section => {
+        if (middleContainer.contains(section)) {
+            // Display all elements inside this .section
+            section.querySelector('.section-head').style.display = 'flex';
+            section.querySelector('.section-head + span').style.display = 'block';
+            section.querySelector('.scrollable').style.display = 'flex';
+        } else {
+            // Hide all elements inside this .section
+            section.querySelector('.section-head').style.display = 'none';
+            section.querySelector('.section-head + span').style.display = 'none';
+            section.querySelector('.scrollable').style.display = 'none';
+        }
+    });
+}
+
+// Call updateSectionHeads initially
+updateSectionHeads();
+
 
 
 
