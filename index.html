@@ -801,7 +801,7 @@
 
         .left-container,
         .right-container {
-            bottom: 0;
+            bottom: 15px;
             height: 100px;
             align-items: center;
             background-color: rgba(100, 150, 200, 0.2);
@@ -832,6 +832,48 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5),
                 0 20px 40px rgba(0, 0, 0, 0.3),
                 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-container .section::after,
+        .right-container .section::after {
+            position: absolute;
+            font-size: 22px;
+            width: 75%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        #adventure::after { 
+            content: 'Adventure';
+            word-break: break-all;
+        }
+        #rentvehicle::after { 
+            content: 'Rent Vehicle';
+        }
+        #touristspots::after { 
+            content: 'Tourist Spots';
+        }
+        #accommodations::after { 
+            content: 'Accommodations';
+            word-break: break-all;
+            line-height: 20px;
+        }
+        #restaurants::after { 
+            content: 'Restaurants';
+            word-break: break-all;
+        }
+        #yoga::after { 
+            content: 'Yoga';
+            align-items: center;
+        }
+        #healthcarefacilities::after { 
+            content: 'Healthcare Facilities';
+        }
+        #ngos::after { 
+            content: 'NGOs';
+            align-items: center;
         }
 
         .middle-container {
@@ -918,7 +960,7 @@
         }
 
         .move-middle {
-            animation: slide-in-middle 0.5s ease;
+            animation: lslide-in-middle 0.5s ease;
         }
 
         .move-left {
@@ -929,7 +971,7 @@
             animation: slide-out-right 0.5s ease;
         }
 
-        @keyframes slide-in-middle {
+        @keyframes lslide-in-middle {
             from {
                 opacity: 0;
                 transform: translateY(0) scale(1);
@@ -1460,17 +1502,18 @@
             .left-container {
                 top: 50vh;
                 align-items: flex-start;
+                z-index: 99;
             }
 
             .right-container {
                 bottom: 50vh;
                 align-items: flex-end;
+                z-index: 77;
             }
 
             .left-container,
             .right-container {
                 display: none;
-                z-index: 99;
                 left: 0;
                 justify-content: center;
                 width: 100vw;
@@ -1492,6 +1535,22 @@
             .middle-container {
                 width: 100vw;
             }
+
+            .move-middle {
+            animation: sslide-in-middle 0.5s ease;
+        }
+
+        @keyframes sslide-in-middle {
+            from {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(-150%) scale(3);
+            }
+        }
 
             #togglesections {
                 z-index: 26;
@@ -1812,7 +1871,7 @@
     <main>
         <div class="main-container">
             <section class="middle-container">
-                <div class="section">
+                <div class="section" id="adventure">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button1">
@@ -2141,7 +2200,7 @@
                 </div>
             </section>
             <section class="left-container">
-                <div onclick="moveToOtherContainer(this, 'right-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'right-container')" class="section" id="rentvehicle">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button2">
@@ -2331,7 +2390,7 @@
                         <!-- Add more activities here -->
                     </div>
                 </div>
-                <div onclick="moveToOtherContainer(this, 'right-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'right-container')" class="section" id="touristspots">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button3">
@@ -2555,7 +2614,7 @@
                         <!-- Add more activities here -->
                     </div>
                 </div>
-                <div onclick="moveToOtherContainer(this, 'right-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'right-container')" class="section" id="accommodations">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button4">
@@ -2786,7 +2845,7 @@
                         <!-- Add more activities here -->
                     </div>
                 </div>
-                <div onclick="moveToOtherContainer(this, 'right-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'right-container')" class="section" id="restaurants">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button5">
@@ -2998,7 +3057,7 @@
                 </div>
             </section>
             <section class="right-container">
-                <div onclick="moveToOtherContainer(this, 'left-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'left-container')" class="section" id="yoga">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button6">
@@ -3136,7 +3195,7 @@
                         </div>
                     </div>
                 </div>
-                <div onclick="moveToOtherContainer(this, 'left-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'left-container')" class="section" id="healthcarefacilities">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button7">
@@ -3353,7 +3412,7 @@
                         <!-- Add more activities here -->
                     </div>
                 </div>
-                <div onclick="moveToOtherContainer(this, 'left-container')" class="section">
+                <div onclick="moveToOtherContainer(this, 'left-container')" class="section" id="ngos">
                     <div class="section-head">
                         <div class="section-title">
                             <div class="rate-us-button" id="rate-us-button8">
@@ -3678,15 +3737,19 @@ if (window.innerWidth < 920) {
 
 
 
-
-
-
-
 function moveToOtherContainer(clickedDiv) {
     var middleContainer = document.querySelector('.middle-container');
     var leftContainer = document.querySelector('.left-container');
     var rightContainer = document.querySelector('.right-container');
     var lrcSections = document.querySelectorAll('.section');
+
+    // Set z-index to 55 when the div is clicked
+    clickedDiv.style.zIndex = 55;
+
+    // Remove the z-index after 1 second
+    setTimeout(function() {
+        clickedDiv.style.zIndex = ''; // This removes the z-index and sets it back to default
+    }, 1000);
 
     if (clickedDiv.parentElement === leftContainer) {
         var existingDiv = middleContainer.querySelector('div');
@@ -3717,8 +3780,10 @@ function moveToOtherContainer(clickedDiv) {
             // Update display of section heads
             updateSectionHeads();
         }, 500); // Adjust the delay based on your animation duration
-        // Call toggleSections after 0.5 second delay
-    setTimeout(toggleSections, 500);
+        if (window.innerWidth < 920) {
+            // Call toggleSections after 0.5 second delay
+            setTimeout(toggleSections, 500);
+        }
     } else if (clickedDiv.parentElement === rightContainer) {
         var existingDiv = middleContainer.querySelector('div');
         if (existingDiv) {
@@ -3743,10 +3808,11 @@ function moveToOtherContainer(clickedDiv) {
             // Update display of section heads
             updateSectionHeads();
         }, 500); // Adjust the delay based on your animation duration
-        // Call toggleSections after 0.5 second delay
-    setTimeout(toggleSections, 500);
+        if (window.innerWidth < 920) {
+            // Call toggleSections after 0.5 second delay
+            setTimeout(toggleSections, 500);
+        }
     }
-    
 }
 
 function updateSectionHeads() {
